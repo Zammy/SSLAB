@@ -1,0 +1,22 @@
+{
+  "name": "com.zammy.sslab",
+  "version": "0.0.1",
+  "displayName": "SSLAB",
+  "description": "SSLAB is a simple service locator and bootstrapper for Unity3D projects",
+  "unity": "2020.3",
+  "documentationUrl": "https://github.com/Zammy/SSLAB",
+  "changelogUrl": "https://github.com/Zammy/SSLAB/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/Zammy/SSLAB/blob/main/LICENSE.md",
+  "keywords": [
+    "Unity3D",
+    "architecture",
+    "skeleton",
+    "serivce-locator",
+    "bootstrapper"
+  ],
+  "author": {
+    "name": "Evgeni Petrov",
+    "email": "evgeni.i.petrov@gmail.com",
+    "url": "https://github.com/Zammy/"
+  }
+}
