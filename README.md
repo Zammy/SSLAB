@@ -1,6 +1,6 @@
-# SSLAB (Simple Service Locator and Boostrapper)
+# SSLAB (Simple Service Locator and Bootstrapper)
 
-I have used ServiceLocator pattern in multiple projects from games to apps for Unity. Although it is considered anti-pattern I belieave that it is better fit than DI (Dependency Injection) in 90% of the times. SSLAB gives you a super simple way to abstract your different modules behind interfaces, to create a separation from Unity's APIs and to incorporate unit-testing if you so desire. It is the skeleton on top of which you can build anything you want. The whole package is less than 200 lines of code thus it is extremely easy to extend with whatever is needed for your project. **All merge requests are welcome! Feel free to fork it and do whatever you want with SSLAB! If you have any question (or you found a bug) you can raise an issue. Happy game developing! <3**
+I have used ServiceLocator pattern in multiple projects from games to apps for Unity. Although it is considered anti-pattern I believe that it is better fit than DI (Dependency Injection) in 90% of the times. SSLAB gives you a super simple way to abstract your different modules behind interfaces, to create a separation from Unity's APIs and to incorporate unit-testing if you so desire. It is the skeleton on top of which you can build anything you want. The whole package is less than 200 lines of code thus it is extremely easy to extend with whatever is needed for your project. **All merge requests are welcome! Feel free to fork it and do whatever you want with SSLAB! If you have any question (or you found a bug) you can raise an issue. Happy game developing! <3**
 
 ## Setup
 
@@ -9,7 +9,7 @@ Include this package in your project. Information how this is done can be found 
 
 Create an `AppBootstrapper` script that inherits from `Bootstrapper`. Go to `Edit->ProjectSettings->Script Execution Order` and move `AppBootstrapper` above Default Time.
 
-Override `Awake()` and instantiate all your non-MonoBehaviour serivces:
+Override `Awake()` and instantiate all your non-MonoBehaviour services:
 ```C#
 using SSLAB;
 
@@ -25,7 +25,7 @@ public class AppBootstrapper : Bootstrapper
 }
 ```
 
-All service should inherit from `IService`. After registring with `ServiceLocator.RegisterService()` they can be accessed with their interface: `ServiceLocator.Instance.GetService<IInventoryService>()`. When registering service you can give them priority of initailization (which will also be the order of update). This will override the default order of insertion.
+All service should inherit from `IService`. After registering with `ServiceLocator.RegisterService()` they can be accessed with their interface: `ServiceLocator.Instance.GetService<IInventoryService>()`. When registering service you can give them priority of initialization (which will also be the order of update). This will override the default order of insertion.
 
 ## Simple Service
 
@@ -34,13 +34,13 @@ Lets say there is another service somewhere with this interface :
 //inventory item
 public class Item() { }
 
-public interface IPersistanceService
+public interface IPersistеnceService
 {
     void Persist(Item[] inventoryItems);
 }
 ```
 
-Lets see how a non-behaviour serivce would be implemented:
+Lets see how a non-behaviour service would be implemented:
 
 ```C#
 //I usually put the interface above the service in the same file
@@ -53,14 +53,14 @@ public interface IInventoryService: IService, IInitializable,ITickableUnscaled
 
 public class InventoryService : IInventoryService
 {
-    IPersistanceService _persistanceService;
+    IPersistеnceService _persistеnceService;
     List<Item> _items;
 
     public void Init()
     {
         //get references to other services in Init() method, do not get services inside Update!
         //Init() method is called before Start() of normal scripts but after Awake()
-        _persistanceService = ServiceLocator.Instance.GetService<IPersistanceService>();
+        _persistеnceService = ServiceLocator.Instance.GetService<IPersistеnceService>();
         _items = new List<Item>();
     }
 
@@ -76,7 +76,7 @@ public class InventoryService : IInventoryService
 
     public void Persist()
     {
-        _persistanceService.Persist(_items.ToArray());
+        _persistеnceService.Persist(_items.ToArray());
     }
 
     public void TickUnscaled(float deltaTime)
@@ -116,7 +116,7 @@ When possible, use non-behaviour services to decrease dependency on Unity. I wou
 ## SSLAB important types:
 
 1. `ServiceLocator` which should be the only true singleton in your project. It is accessed with its singleton accessor `ServiceLocator.Instance`. 
-    - `IService`: all services should inherit from this base intrface. It is an empty interface.
+    - `IService`: all services should inherit from this base interface. It is an empty interface.
     - `IInitializable`: if you want your service to have an `Init()` method (equivalent to `MonoBehaviour.Start()`) it should inherit from this interface.
     - `IDestroyable`: if you want `OnDestroy()` equivalent.
     - `ITickable`: if you want `Update()` equivalent.
